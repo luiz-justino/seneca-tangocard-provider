@@ -1,4 +1,6 @@
 module.exports = {
-  TRELLO_APIKEY: '<API-KEY>',
-  TRELLO_USERTOKEN: '<USER-TOKEN>',
+  TANGOCARD_NAME: '<NAME>',
+  TANGOCARD_KEY: '<KEY>',
+  TANGOCARD_CUSTID: '<customerIdentifier>',
+  TANGOCARD_ACCID: '<accountIdentifier>',
 }

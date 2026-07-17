@@ -1,32 +1,38 @@
-![Seneca Trello-Provider](http://senecajs.org/files/assets/seneca-logo.png)
+![Seneca](http://senecajs.org/files/assets/seneca-logo.png)
+> A [Seneca.js](http://senecajs.org) plugin
 
-> _Seneca Trello-Provider_ is a plugin for [Seneca](http://senecajs.org)
+# @seneca/tangocard-provider
 
-
-Provides access to the Trello API using the Seneca *provider*
-convention. Trello API entities are represented as Seneca entities so
-that they can be accessed using the Seneca entity API and messages.
-
-See [seneca-entity](senecajs/seneca-entity) and the [Seneca Data
-Entities
-Tutorial](https://senecajs.org/docs/tutorials/understanding-data-entities.html) for more details on the Seneca entity API.
-
-NOTE: underlying third party SDK needs to be replaced as out of date and has a security issue.
-
-[![npm version](https://img.shields.io/npm/v/@seneca/trello-provider.svg)](https://npmjs.com/package/@seneca/trello-provider)
-[![build](https://github.com/senecajs/seneca-trello-provider/actions/workflows/build.yml/badge.svg)](https://github.com/senecajs/seneca-trello-provider/actions/workflows/build.yml)
-[![Coverage Status](https://coveralls.io/repos/github/senecajs/seneca-trello-provider/badge.svg?branch=main)](https://coveralls.io/github/senecajs/seneca-trello-provider?branch=main)
-[![Known Vulnerabilities](https://snyk.io/test/github/senecajs/seneca-trello-provider/badge.svg)](https://snyk.io/test/github/senecajs/seneca-trello-provider)
-[![DeepScan grade](https://deepscan.io/api/teams/5016/projects/19462/branches/505954/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=5016&pid=19462&bid=505954)
-[![Maintainability](https://api.codeclimate.com/v1/badges/f76e83896b731bb5d609/maintainability)](https://codeclimate.com/github/senecajs/seneca-trello-provider/maintainability)
-
+[![npm version](https://img.shields.io/npm/v/@seneca/tangocard-provider.svg)](https://npmjs.com/package/@seneca/tangocard-provider)
+[![build](https://github.com/senecajs/seneca-tangocard-provider/actions/workflows/build.yml/badge.svg)](https://github.com/senecajs/seneca-tangocard-provider/actions/workflows/build.yml)
+[![Known Vulnerabilities](https://snyk.io/test/github/senecajs/seneca-tangocard-provider/badge.svg)](https://snyk.io/test/github/senecajs/seneca-tangocard-provider)
+[![Coverage Status](https://coveralls.io/repos/github/senecajs/seneca-tangocard-provider/badge.svg?branch=main)](https://coveralls.io/github/senecajs/seneca-tangocard-provider?branch=main)
+[![Maintainability](https://api.codeclimate.com/v1/badges/f76e83896b731bb5d609/maintainability)](https://codeclimate.com/github/senecajs/seneca-tangocard-provider/maintainability)
 
 | ![Voxgig](https://www.voxgig.com/res/img/vgt01r.png) | This open source module is sponsored and supported by [Voxgig](https://www.voxgig.com). |
 |---|---|
 
 
-## Quick Example
+Provides access to the Tangocard API using the Seneca *provider*
+convention. Tangocard API entities are represented as Seneca entities so
+that they can be accessed using the Seneca entity API and messages.
+See [seneca-entity](senecajs/seneca-entity) and the [Seneca Data
+Entities
+Tutorial](https://senecajs.org/docs/tutorials/understanding-data-entities.html) for more details on the Seneca entity API.
+NOTE: underlying third party SDK needs to be replaced as out of date and has a security issue.
 
+
+## Install
+
+```sh
+$ npm install @seneca/tangocard-provider @seneca/env
+```
+
+
+
+<!--START:options-->
+
+## Quick Example
 
 ```js
 
@@ -36,24 +42,24 @@ Seneca()
   // Get API keys using the seneca-env plugin
   .use('env', {
     var: {
-      $TRELLO_APIKEY: String,
-      $TRELLO_USERTOKEN: String,
+      $TANGOCARD_APIKEY: String,
+      $TANGOCARD_USERTOKEN: String,
     }
   })
   .use('provider', {
     provider: {
-      trello: {
+      tangocard: {
         keys: {
-          apikey: { value: '$TRELLO_APIKEY' },
-          usertoken: { value: '$TRELLO_USERTOKEN' },
+          apikey: { value: '$TANGOCARD_APIKEY' },
+          usertoken: { value: '$TANGOCARD_USERTOKEN' },
         }
       }
     }
   })
-  .use('trello-provider')
+  .use('tangocard-provider')
 
-let board = await seneca.entity('provider/trello/board')
-  .load$('<trello-board-id>')
+let board = await seneca.entity('provider/tangocard/board')
+  .load$('<tangocard-board-id>')
 
 Console.log('BOARD', board)
 
@@ -64,18 +70,25 @@ Console.log('UPDATED BOARD', board)
 
 ```
 
-## Install
+## More Examples
 
-```sh
-$ npm install @seneca/trello-provider @seneca/env
-```
+See [test/](test/) for more usage examples.
 
+## Motivation
 
+A [Seneca.js](http://senecajs.org) plugin.
 
-<!--START:options-->
+## Support
 
+If you're using this module and need help, you can:
 
-## Options
+- Post a [github issue](https://github.com/senecajs/seneca-tangocard-provider/issues)
+- Tweet to [@senecajs](http://twitter.com/senecajs)
+- Ask on the [Gitter](https://gitter.im/senecajs/seneca)
+
+## API
+
+### Options
 
 * `debug` : boolean <i><small>false</small></i>
 
@@ -84,7 +97,7 @@ Set plugin options when loading with:
 ```js
 
 
-seneca.use('TrelloProvider', { name: value, ... })
+seneca.use('TangocardProvider', { name: value, ... })
 
 
 ```
@@ -99,36 +112,34 @@ seneca.use('TrelloProvider', { name: value, ... })
 
 <!--START:action-list-->
 
+### Action Patterns
 
-## Action Patterns
-
-* [role:entity,base:trello,cmd:load,name:repo,zone:provider](#-roleentitybasetrellocmdloadnamerepozoneprovider-)
-* [role:entity,base:trello,cmd:save,name:repo,zone:provider](#-roleentitybasetrellocmdsavenamerepozoneprovider-)
-* [sys:provider,get:info,provider:trello](#-sysprovidergetinfoprovidertrello-)
+* [role:entity,base:tangocard,cmd:load,name:repo,zone:provider](#-roleentitybasetangocardcmdloadnamerepozoneprovider-)
+* [role:entity,base:tangocard,cmd:save,name:repo,zone:provider](#-roleentitybasetangocardcmdsavenamerepozoneprovider-)
+* [sys:provider,get:info,provider:tangocard](#-sysprovidergetinfoprovidertangocard-)
 
 
 <!--END:action-list-->
 
 <!--START:action-desc-->
 
+### Action Descriptions
 
-## Action Descriptions
+### &laquo; `role:entity,base:tangocard,cmd:load,name:repo,zone:provider` &raquo;
 
-### &laquo; `role:entity,base:trello,cmd:load,name:repo,zone:provider` &raquo;
-
-Load Trello repository data into an entity.
-
-
-
-----------
-### &laquo; `role:entity,base:trello,cmd:save,name:repo,zone:provider` &raquo;
-
-Update Trello repository data from an entity.
+Load Tangocard repository data into an entity.
 
 
 
 ----------
-### &laquo; `sys:provider,get:info,provider:trello` &raquo;
+### &laquo; `role:entity,base:tangocard,cmd:save,name:repo,zone:provider` &raquo;
+
+Update Tangocard repository data from an entity.
+
+
+
+----------
+### &laquo; `sys:provider,get:info,provider:tangocard` &raquo;
 
 Get information about the provider.
 
@@ -138,3 +149,17 @@ Get information about the provider.
 
 
 <!--END:action-desc-->
+
+## Contributing
+
+The [Senecajs org](https://github.com/senecajs/) encourages open participation. If you feel you can help in any way, be it with documentation, examples, extra testing, or new features please get in touch.
+
+### Running tests
+
+```sh
+npm run test
+```
+
+## Background
+
+Part of the [Senecajs org](https://github.com/senecajs/).
